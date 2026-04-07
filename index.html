@@ -8,7 +8,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; }
-    .tab-active { border-bottom: 3px solid #22c55e; color: white; font-weight: 600; }
   </style>
 </head>
 <body class="bg-zinc-950 text-zinc-100 min-h-screen">
@@ -18,70 +17,97 @@
         <h1 class="text-5xl font-bold">Sip Steet</h1>
         <p class="text-emerald-400 text-2xl">Real Estate Development Financial Model</p>
       </div>
+      <div class="text-sm text-zinc-400">SIPs Optimized • Live Calculations</div>
     </div>
 
-    <!-- Tabs -->
-    <div class="flex border-b border-zinc-700 mb-8 overflow-x-auto">
-      <button onclick="switchTab(0)" class="tab-active px-8 py-4" id="tab0">Assumptions</button>
-      <button onclick="switchTab(1)" class="px-8 py-4" id="tab1">Dashboard</button>
-      <button onclick="switchTab(2)" class="px-8 py-4" id="tab2">Waterfall</button>
-      <button onclick="switchTab(3)" class="px-8 py-4" id="tab3">GP / LP Split</button>
-      <button onclick="switchTab(4)" class="px-8 py-4" id="tab4">Cash Flow</button>
+    <!-- Two Tabs -->
+    <div class="flex border-b border-zinc-700 mb-8">
+      <button onclick="switchTab(0)" class="tab-active px-10 py-4 text-lg" id="tab0">Assumptions</button>
+      <button onclick="switchTab(1)" class="px-10 py-4 text-lg" id="tab1">Dashboard</button>
     </div>
 
     <!-- Assumptions Tab -->
-    <div id="content0" class="tab-content grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <div><label class="block text-xs text-zinc-400 mb-2">Total Land Acres</label><input id="landAcres" type="number" step="0.1" value="8.2" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Infrastructure Acres</label><input id="infraAcres" type="number" step="0.1" value="2" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Homes per Developable Acre</label><input id="homesPerAcre" type="number" value="8" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Tree Count</label><input id="treeCount" type="number" value="600" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Tree Price ($)</label><input id="treePrice" type="number" value="700" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Land Cost ($)</label><input id="landCost" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Home Sale Price ($)</label><input id="homePrice" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Build Cost per Home ($)</label><input id="buildCost" type="number" value="110000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Infra/Soft per Home ($)</label><input id="infraPerHome" type="number" value="35000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Development Months</label><input id="months" type="number" value="24" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">SIP Carry Reduction (%)</label><input id="sipReduction" type="number" value="40" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Loan % of Cost</label><input id="loanPct" type="number" value="70" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">Interest Rate (%)</label><input id="interestRate" type="number" value="10" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
-      <div><label class="block text-xs text-zinc-400 mb-2">LP Preferred Return (%)</label><input id="prefReturn" type="number" value="8" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4" oninput="recalculate()"></div>
+    <div id="content0" class="tab-content">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div><label class="block text-xs text-zinc-400 mb-2">Total Land Acres</label><input id="landAcres" type="number" step="0.1" value="8.2" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Infrastructure Acres</label><input id="infraAcres" type="number" step="0.1" value="2" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Homes per Developable Acre</label><input id="homesPerAcre" type="number" value="8" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Tree Count</label><input id="treeCount" type="number" value="600" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Tree Price ($)</label><input id="treePrice" type="number" value="700" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Land Cost ($)</label><input id="landCost" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Home Sale Price ($)</label><input id="homePrice" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Build Cost per Home ($)</label><input id="buildCost" type="number" value="110000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Infra/Soft per Home ($)</label><input id="infraPerHome" type="number" value="35000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Development Months</label><input id="months" type="number" value="24" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">SIP Carry Reduction (%)</label><input id="sipReduction" type="number" value="40" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Loan % of Cost</label><input id="loanPct" type="number" value="70" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">Interest Rate (%)</label><input id="interestRate" type="number" value="10" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+        <div><label class="block text-xs text-zinc-400 mb-2">LP Preferred Return (%)</label><input id="prefReturn" type="number" value="8" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+      </div>
     </div>
 
-    <!-- Dashboard -->
+    <!-- Dashboard Tab - Everything in one view -->
     <div id="content1" class="tab-content hidden">
-      <div class="grid grid-cols-3 gap-6">
-        <div class="bg-zinc-900 rounded-3xl p-8"><p class="text-emerald-400">TOTAL REVENUE</p><p id="totalRevenue" class="text-5xl font-bold mt-3">$9,920,000</p></div>
-        <div class="bg-zinc-900 rounded-3xl p-8"><p class="text-red-400">TOTAL COST</p><p id="totalCost" class="text-5xl font-bold mt-3">$8,812,650</p></div>
-        <div class="bg-zinc-900 rounded-3xl p-8"><p class="text-emerald-400">NET PROFIT</p><p id="netProfit" class="text-5xl font-bold mt-3">$2,107,350</p></div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Column: Key Numbers -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-zinc-900 rounded-3xl p-8">
+            <p class="text-emerald-400 text-sm">TOTAL REVENUE</p>
+            <p id="totalRevenue" class="text-5xl font-bold mt-2">$9,920,000</p>
+          </div>
+          <div class="bg-zinc-900 rounded-3xl p-8">
+            <p class="text-red-400 text-sm">TOTAL PROJECT COST</p>
+            <p id="totalCost" class="text-5xl font-bold mt-2">$8,812,650</p>
+          </div>
+          <div class="bg-zinc-900 rounded-3xl p-8">
+            <p class="text-emerald-400 text-sm">NET PROFIT</p>
+            <p id="netProfit" class="text-5xl font-bold mt-2">$2,107,350</p>
+          </div>
+        </div>
+
+        <!-- Right Column: GP/LP + Charts -->
+        <div class="lg:col-span-7 space-y-8">
+          <!-- GP / LP Breakdown -->
+          <div class="bg-zinc-900 rounded-3xl p-8">
+            <h3 class="text-2xl font-semibold mb-6">GP / LP Income Breakdown (50/50 Split)</h3>
+            <div id="gpLpBreakdown" class="grid grid-cols-1 md:grid-cols-2 gap-10"></div>
+          </div>
+
+          <!-- Waterfall Chart -->
+          <div class="bg-zinc-900 rounded-3xl p-8">
+            <h3 class="font-semibold mb-4">Project Cash Waterfall</h3>
+            <canvas id="waterfallChart" class="w-full h-80"></canvas>
+          </div>
+
+          <!-- Cash Flow Summary -->
+          <div class="bg-zinc-900 rounded-3xl p-8">
+            <h3 class="font-semibold mb-4">Cash Flow Summary</h3>
+            <div id="cashflowSummary" class="space-y-4 text-sm"></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Waterfall -->
-    <div id="content2" class="tab-content hidden"><canvas id="waterfallChart" class="w-full h-96"></canvas></div>
-
-    <!-- GP / LP Split Tab -->
-    <div id="content3" class="tab-content hidden">
-      <div class="bg-zinc-900 rounded-3xl p-8">
-        <h3 class="text-2xl font-semibold mb-6">GP / LP Income Breakdown (50/50 Split)</h3>
-        <div id="gpLpBreakdown" class="grid grid-cols-1 md:grid-cols-2 gap-10"></div>
-      </div>
-    </div>
-
-    <!-- Cash Flow -->
-    <div id="content4" class="tab-content hidden">
-      <div class="bg-zinc-900 rounded-3xl p-8">
-        <h3 class="font-semibold mb-4">Cash Flow Summary</h3>
-        <div id="cashflowSummary" class="space-y-4"></div>
-      </div>
-    </div>
-
-    <div class="mt-12 text-center text-xs text-zinc-500">
-      Sip Steet — Real Estate Development Financial Model
+    <div class="mt-16 text-center text-xs text-zinc-500">
+      Sip Steet — Real Estate Development Financial Model • Simplified 2-Tab View
     </div>
   </div>
 
   <script>
     let chartInstance = null;
+
+    function switchTab(n) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('content' + n).classList.remove('hidden');
+      document.querySelectorAll('button').forEach(b => b.classList.remove('tab-active'));
+      document.getElementById('tab' + n).classList.add('tab-active');
+      if (n === 1) {
+        recalculate();           // Force refresh when switching to Dashboard
+        renderWaterfall();
+        renderCashflow();
+      }
+    }
 
     function recalculate() {
       const landAcres = parseFloat(document.getElementById('landAcres').value) || 8.2;
@@ -118,44 +144,33 @@
       const equity = totalCost * 0.3;
       const prefAmount = equity * (prefReturn / 100) * (months / 12);
       const remainingProfit = Math.max(0, netProfit - prefAmount);
-      const gpShare = remainingProfit * 0.5 + (landCost * 0.015);   // GP gets acquisition fee + 50%
+      const gpShare = remainingProfit * 0.5 + (landCost * 0.015);
       const lpShare = prefAmount + (remainingProfit * 0.5);
 
-      // Update Dashboard
+      // Update main numbers
       document.getElementById('totalRevenue').textContent = '$' + Math.round(totalRev).toLocaleString();
       document.getElementById('totalCost').textContent = '$' + Math.round(totalCost).toLocaleString();
       document.getElementById('netProfit').textContent = '$' + Math.round(netProfit).toLocaleString();
 
-      // Update GP/LP Breakdown (now live!)
+      // Update GP/LP Breakdown
       document.getElementById('gpLpBreakdown').innerHTML = `
         <div>
           <p class="text-emerald-400 font-semibold mb-4">GP Share</p>
-          <div class="space-y-3">
-            <div class="flex justify-between"><span>Acquisition Fee (1.5% of land)</span><span class="font-mono">$${(landCost * 0.015).toLocaleString()}</span></div>
+          <div class="space-y-3 text-lg">
+            <div class="flex justify-between"><span>Acquisition Fee (1.5%)</span><span class="font-mono">$${(landCost * 0.015).toLocaleString()}</span></div>
             <div class="flex justify-between"><span>Profit Share (50%)</span><span class="font-mono">$${Math.round(remainingProfit * 0.5).toLocaleString()}</span></div>
-            <div class="flex justify-between font-bold border-t pt-3"><span>Total GP</span><span class="font-mono">$${Math.round(gpShare).toLocaleString()}</span></div>
+            <div class="flex justify-between font-bold pt-3 border-t border-zinc-700"><span>Total GP</span><span class="font-mono text-emerald-400">$${Math.round(gpShare).toLocaleString()}</span></div>
           </div>
         </div>
         <div>
           <p class="text-emerald-400 font-semibold mb-4">LP Share</p>
-          <div class="space-y-3">
+          <div class="space-y-3 text-lg">
             <div class="flex justify-between"><span>Preferred Return (${prefReturn}%)</span><span class="font-mono">$${Math.round(prefAmount).toLocaleString()}</span></div>
             <div class="flex justify-between"><span>Profit Share (50%)</span><span class="font-mono">$${Math.round(remainingProfit * 0.5).toLocaleString()}</span></div>
-            <div class="flex justify-between font-bold border-t pt-3"><span>Total LP</span><span class="font-mono">$${Math.round(lpShare).toLocaleString()}</span></div>
+            <div class="flex justify-between font-bold pt-3 border-t border-zinc-700"><span>Total LP</span><span class="font-mono text-emerald-400">$${Math.round(lpShare).toLocaleString()}</span></div>
           </div>
         </div>
       `;
-
-      if (chartInstance) chartInstance.update();
-    }
-
-    function switchTab(n) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById('content' + n).classList.remove('hidden');
-      document.querySelectorAll('button').forEach(b => b.classList.remove('tab-active'));
-      document.getElementById('tab' + n).classList.add('tab-active');
-      if (n === 2) renderWaterfall();
-      if (n === 4) renderCashflow();
     }
 
     function renderWaterfall() {
@@ -164,25 +179,27 @@
       chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Trees', 'Home Sales', 'Costs', 'Net Profit'],
+          labels: ['Tree Revenue', 'Home Sales', 'Total Costs', 'Net Profit'],
           datasets: [{ data: [420000, 9500000, -8800000, 2107350], backgroundColor: ['#10b981', '#10b981', '#ef4444', '#22c55e'] }]
         },
-        options: { scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+        options: { scales: { y: { beginAtZero: true }}, plugins: { legend: { display: false }} }
       });
     }
 
     function renderCashflow() {
       document.getElementById('cashflowSummary').innerHTML = `
-        <div class="flex justify-between py-3"><span>Tree Harvest</span><span class="text-emerald-400">+$420,000</span></div>
-        <div class="flex justify-between py-3"><span>Construction & Infra</span><span class="text-red-400">-$7,200,000</span></div>
-        <div class="flex justify-between py-3"><span>Home Sales Revenue</span><span class="text-emerald-400">+$9,500,000</span></div>
-        <div class="flex justify-between py-3 font-bold text-emerald-400"><span>Net LP Return</span><span>+$3,781,470</span></div>
+        <div class="flex justify-between"><span>Tree Harvest</span><span class="text-emerald-400">+$420,000</span></div>
+        <div class="flex justify-between"><span>Construction & Infra Draws</span><span class="text-red-400">-$7,200,000</span></div>
+        <div class="flex justify-between"><span>Home Sales Revenue</span><span class="text-emerald-400">+$9,500,000</span></div>
+        <div class="flex justify-between font-bold text-emerald-400"><span>Net LP Return</span><span>+$3,781,470</span></div>
       `;
     }
 
     window.onload = () => {
       recalculate();
-      switchTab(1);
+      switchTab(1);           // Start on Dashboard
+      renderWaterfall();
+      renderCashflow();
     };
   </script>
 </body>
