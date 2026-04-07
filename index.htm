@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Sip Steet • Development Financial Model&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body { font-family: system-ui, -apple-system, sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.tab-active { border-bottom: 3px solid #22c55e; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-zinc-950 text-zinc-100 min-h-screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="max-w-7xl mx-auto p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flex justify-between items-center mb-8 border-b border-zinc-800 pb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 class="text-5xl font-bold text-white"&gt;Sip Steet&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-emerald-400 text-xl"&gt;Real Estate Development Financial Model&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="text-right"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-zinc-400"&gt;SIPs-optimized • Live calculations&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 lg:grid-cols-12 gap-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Assumptions Panel --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="lg:col-span-5 bg-zinc-900 rounded-3xl p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="text-2xl font-semibold mb-6"&gt;Project Assumptions&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Add your input fields here — for now it's a placeholder. We can expand later. --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label class="block text-sm text-zinc-400 mb-2"&gt;Land Acres&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" value="8.2" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label class="block text-sm text-zinc-400 mb-2"&gt;Land Cost ($)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" value="190000" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label class="block text-sm text-zinc-400 mb-2"&gt;Avg Home Sale Price&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" value="190000" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="alert('Live calculations coming in next update!')" class="mt-10 w-full bg-emerald-500 hover:bg-emerald-600 py-5 rounded-2xl font-semibold text-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Recalculate Model</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Dashboard / Results --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="lg:col-span-7"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-zinc-900 rounded-3xl p-8 mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h2 class="text-2xl font-semibold mb-6"&gt;Pro Forma Summary&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid grid-cols-3 gap-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-emerald-400 text-sm"&gt;TOTAL REVENUE&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-4xl font-bold mt-2"&gt;$9,920,000&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-red-400 text-sm"&gt;TOTAL COST&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-4xl font-bold mt-2"&gt;$8,812,650&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-emerald-400 text-sm"&gt;NET PROFIT&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-4xl font-bold mt-2"&gt;$2,107,350&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-zinc-900 rounded-3xl p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h2 class="text-2xl font-semibold mb-6"&gt;LP Returns (70/30 Financing)&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-6xl font-bold text-emerald-400"&gt;19.8%&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-xl text-zinc-400"&gt;Expected IRR&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mt-16 text-center text-zinc-500 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>Sip Steet — Built for real estate developers • Phase 1 MVP</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
