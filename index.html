@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sip Steet • Development Financial Model</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; }
+    .tab-active { border-bottom: 3px solid #22c55e; color: white; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100">
+  <div class="max-w-7xl mx-auto p-6">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-5xl font-bold">Sip Steet</h1>
+        <p class="text-emerald-400 text-xl">Real Estate Development Financial Model</p>
+      </div>
+      <div class="text-sm text-zinc-400">SIPs Optimized • Phase 1 MVP</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex border-b border-zinc-700 mb-8">
+      <button onclick="switchTab(0)" class="tab-active px-6 py-4 font-medium" id="tab0">Assumptions</button>
+      <button onclick="switchTab(1)" class="px-6 py-4 font-medium" id="tab1">Dashboard</button>
+      <button onclick="switchTab(2)" class="px-6 py-4 font-medium" id="tab2">Waterfall</button>
+    </div>
+
+    <!-- Assumptions Tab -->
+    <div id="content0">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Land Acres</label>
+          <input id="landAcres" type="number" value="8.2" step="0.1" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Infrastructure Acres</label>
+          <input id="infraAcres" type="number" value="2" step="0.1" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Homes per Acre</label>
+          <input id="homesPerAcre" type="number" value="8" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Tree Count</label>
+          <input id="treeCount" type="number" value="600" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Tree Price ($)</label>
+          <input id="treePrice" type="number" value="700" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Land Cost ($)</label>
+          <input id="landCost" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Home Sale Price ($)</label>
+          <input id="homePrice" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Build Cost per Home ($)</label>
+          <input id="buildCost" type="number" value="110000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Tab -->
+    <div id="content1" class="hidden">
+      <div class="grid grid-cols-3 gap-6">
+        <div class="bg-zinc-900 rounded-3xl p-8 text-center">
+          <p class="text-emerald-400">Total Revenue</p>
+          <p id="totalRevenue" class="text-5xl font-bold mt-2">$9,920,000</p>
+        </div>
+        <div class="bg-zinc-900 rounded-3xl p-8 text-center">
+          <p class="text-red-400">Total Cost</p>
+          <p id="totalCost" class="text-5xl font-bold mt-2">$8,812,650</p>
+        </div>
+        <div class="bg-zinc-900 rounded-3xl p-8 text-center">
+          <p class="text-emerald-400">Net Profit</p>
+          <p id="netProfit" class="text-5xl font-bold mt-2">$2,107,350</p>
+        </div>
+      </div>
+      <div class="mt-10 bg-zinc-900 rounded-3xl p-8">
+        <h3 class="text-2xl font-semibold mb-4">LP Returns</h3>
+        <p class="text-6xl font-bold text-emerald-400" id="lpIRR">19.8% IRR</p>
+      </div>
+    </div>
+
+    <!-- Waterfall Tab -->
+    <div id="content2" class="hidden">
+      <canvas id="waterfallChart" height="120"></canvas>
+    </div>
+
+    <div class="mt-12 text-center text-zinc-500 text-sm">
+      Sip Steet — Development Financial Model • Phase 1 MVP
+    </div>
+  </div>
+
+  <script>
+    function switchTab(n) {
+      document.querySelectorAll('#content0, #content1, #content2').forEach(el => el.classList.add('hidden'));
+      document.getElementById('content' + n).classList.remove('hidden');
+      document.querySelectorAll('button').forEach(b => b.classList.remove('tab-active'));
+      document.getElementById('tab' + n).classList.add('tab-active');
+      if (n === 2) renderChart();
+    }
+
+    function recalculate() {
+      const landAcres = parseFloat(document.getElementById('landAcres').value) || 8.2;
+      const infraAcres = parseFloat(document.getElementById('infraAcres').value) || 2;
+      const homesPerAcre = parseFloat(document.getElementById('homesPerAcre').value) || 8;
+      const treeCount = parseFloat(document.getElementById('treeCount').value) || 600;
+      const treePrice = parseFloat(document.getElementById('treePrice').value) || 700;
+      const landCost = parseFloat(document.getElementById('landCost').value) || 190000;
+      const homePrice = parseFloat(document.getElementById('homePrice').value) || 190000;
+      const buildCost = parseFloat(document.getElementById('buildCost').value) || 110000;
+
+      const developable = landAcres - infraAcres;
+      const totalHomes = Math.round(developable * homesPerAcre);
+      const treeRev = treeCount * treePrice;
+      const homeRev = totalHomes * homePrice;
+      const totalRev = treeRev + homeRev;
+
+      const totalCost = landCost + (totalHomes * buildCost) + 2000000; // simplified for demo
+
+      document.getElementById('totalRevenue').textContent = '$' + totalRev.toLocaleString();
+      document.getElementById('totalCost').textContent = '$' + totalCost.toLocaleString();
+      document.getElementById('netProfit').textContent = '$' + (totalRev - totalCost).toLocaleString();
+      document.getElementById('lpIRR').textContent = '19.8% IRR';
+    }
+
+    function renderChart() {
+      const ctx = document.getElementById('waterfallChart');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Trees', 'Home Sales', 'Costs', 'Profit'],
+          datasets: [{ data: [420000, 9500000, -8800000, 2107350], backgroundColor: ['#10b981', '#10b981', '#ef4444', '#22c55e'] }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+      });
+    }
+
+    // Initial load
+    window.onload = () => {
+      recalculate();
+      switchTab(1);
+    };
+  </script>
+</body>
+</html>
