@@ -1,107 +1,91 @@
 # Sip Steet Master Roadmap
 
 **Company Vision**  
-Sip Steet Group is a **vertically integrated real estate development and manufacturing company** that controls the entire value chain — land acquisition, SIP panel manufacturing, construction, and asset management.  
+Sip Steet Group is a **vertically integrated real estate development and manufacturing company** that controls land acquisition, SIP panel manufacturing, construction, and asset management.  
 
 **Core Differentiation**  
-We treat SIP (Structural Insulated Panels) technology the same way Tesla treats batteries and Toyota treats the production system: as the foundational, proprietary technology we design, manufacture, and iterate on ourselves. This gives us unmatched speed, cost control, quality, and energy performance across every asset class.
+SIP technology treated with Tesla-style first-principles innovation and Toyota-style lean discipline. We design, manufacture, and iterate on our own panels to achieve unmatched speed, cost control, and quality.
 
-**Guiding Principles** (Tesla + Toyota CTO Lens)  
-- **First-Principles Thinking** (Tesla) – Break every home or building down to physics, cost, and time. Eliminate waste at the source.  
-- **Vertical Integration** (Tesla) – Own the SIP factory, raw material sourcing, and panel design so we control quality, lead times, and innovation.  
-- **Lean / Kaizen** (Toyota) – Continuous improvement, respect for every team member, standardization, and relentless elimination of waste (muda).  
-- **Long-Term Thinking** – Build for decades, not quarters. Prioritize reliability, scalability, and sustainability over short-term hype.
-
-**Scope**  
-We develop **every major asset class** where SIPs deliver clear advantage:
-- Residential (luxury custom homes → workforce housing → transitional/homeless shelters)
-- Commercial, industrial, warehouse, data centers, hotels, solar/energy facilities, healthcare, educational, and agricultural buildings.
+**Investor Experience Principle**  
+Any investor who receives a link or report must be able to go from “interested” to “soft commitment” in under 60 seconds with zero friction, then seamlessly move into full closing via PandaDoc and our investor portal.
 
 ---
 
 ## Phase 0: Validation & First-Principles Discovery (April – May 2026)
-
-- Interview 25+ developers, builders, general contractors, and city planners across luxury, workforce, and shelter segments.
-- Validate demand for internal tooling + external SIP supply.
-- Conduct first-principles cost and time studies on SIP vs. traditional stick-frame in each housing class.
-- Build waitlist landing page and collect early beta users.
-
-**Deliverable**: Validated product-market fit + detailed cost database for every asset class.
+- Interview developers, builders, and **potential investors** across luxury, workforce, and shelter segments.
+- Validate demand for both the modeling tool and the end-to-end investor flow.
+- Build waitlist landing page.
 
 ---
 
 ## Phase 1: Core Internal Tooling – Sip Steet v1 (May – July 2026)
-
-Current focus: Make the modeling tool bulletproof for our own deals.
-
-- Live, editable sub-components for every cost line (home build + infrastructure)
-- One unified Profit & Loss statement
+- Live editable sub-components for all costs
+- Unified Profit & Loss statement
 - GP/LP waterfall (50/50 split + preferred return)
-- Cash waterfall visualization
-- Sensitivity tables + Monte Carlo risk analysis
-- **Zillow/MLS Link Dropping** (auto-scrape address, sqft, comps, zoning, and pre-fill model)
-- PDF export for investor packages
+- Cash waterfall + Monte Carlo
+- **Zillow/MLS Link Dropping** (auto-scrape and pre-fill model)
+- One-click PDF report export
 
-**Success Metric**: Every internal deal runs through Sip Steet before any capital commitment.
+**Success Metric**: Every internal deal runs through Sip Steet.
 
 ---
 
-## Phase 2: Pitch Deck & Marketing Automation (July – September 2026)
+## Phase 2: Investor Flow & External Automation (July – October 2026)
 
-Inspired by Slidebean + Tesla investor decks.
+**Key New Features**  
+- **Investor Link / Report Experience**  
+  - Investor receives a branded Sip Steet report or direct link.
+  - One prominent “Invest in This Project” button.
+  - Investor inputs desired investment amount ($X) asynchronously.
+  - Simple soft-commitment form (name, email, amount, accredited investor checkbox).
+  - Instant PandaDoc soft-commitment document for e-signature.
+  - Calendly link for next-step call with the team.
+  - Automatic redirect to our specialized **Investor Portal** (see FEATURES.md).
 
-- One-click **Investor Pitch Deck Generator** that pulls live numbers from any project model.
-- Pre-built slide library emphasizing vertical integration and SIP advantage.
-- Automated marketing collateral (one-pagers, brochures, email campaigns, social graphics).
+- **PandaDoc Integration**  
+  - Automated document generation and signing for soft commitments, LP agreements, and full closing docs.
+  - Templates for every asset class (residential, commercial, data center, hotel, etc.).
 
-**Deliverable**: Any project can be turned into a professional investor deck in < 5 minutes.
+- **Investor Portal SaaS (AppFolio-style for funds)**  
+  - Dedicated portal where investors can:
+    - View all active and past deals
+    - Track capital calls and distributions
+    - See real-time project updates and SIP manufacturing progress
+    - Download tax documents and K-1s
+    - Receive automated quarterly reports
+  - We will use existing best-in-class tools (e.g., AppFolio, DealCloud, or InvestorFlow) for the backend, but our front-end experience will be seamless and branded as Sip Steet.
+
+**Goal**: From report link → soft commitment → signed document → portal access → money movement in one continuous, low-friction flow.
 
 ---
 
 ## Phase 3: Public Websites & Brand Ecosystem (Q4 2026)
-
-**SipSteet.com** (Development Company)  
-- Project showcase across all asset classes  
-- “Why SIPs?” comparison engine  
-- Investor portal with secure report uploads  
-
-**SipSteetManufacturing.com** (SIP Supply)  
-- Product catalog with configurator  
-- Builder ordering portal  
-- Technical specs, certifications, and case studies  
+- SipSteet.com (development company)
+- SipSteetManufacturing.com (SIP supply)
+- Investor portal subdomain (invest.sipsteet.com)
 
 ---
 
 ## Phase 4: Full Vertical Integration Platform (2027)
-
-- SIP Factory Operations Dashboard (production scheduling, inventory, quality control)
-- Multi-Asset Class Modeling Engine (detailed calculators for every industry listed in FEATURES.md)
-- Capital Stack & Financing Tools
-- Project Pipeline & Construction Management System
-- Kaizen Continuous Improvement Loop (weekly waste-elimination reviews)
+- SIP factory operations dashboard
+- Multi-asset class modeling engine (residential through data centers)
+- Capital stack and financing tools
+- Project pipeline & construction management system
 
 ---
 
 ## Phase 5: Nationwide Scale & Monetization (2027–2028+)
-
-- Subscription model for external developers
-- SIP panel sales to third-party builders
+- Subscription for external developers
+- SIP panel sales to third parties
 - Regional development partnerships
-- R&D pipeline for next-generation SIP technology
-
-**Risks & Mitigation** (Toyota + Tesla Discipline)
-- No validation → Mandatory Phase 0 user interviews
-- Technical debt → Strict move from single HTML to proper architecture
-- Inconsistent data → Single source of truth calculation engine
-- Over-engineering → Start simple, iterate with Kaizen
 
 ---
 
-**This is not just software.**  
-It is the operating system for a new kind of American homebuilder — one that combines Tesla’s vertical integration and innovation speed with Toyota’s lean discipline and relentless quality focus.
+**Risks & Mitigation** (Tesla + Toyota Discipline)
+- No validation → Mandatory Phase 0 user + investor interviews
+- Technical debt → Move to proper architecture early
+- Investor friction → Every link must lead to money changing hands with zero unnecessary steps
 
-We build the tool first.  
-Then the factory.  
-Then the company.
+This roadmap turns Sip Steet from a modeling tool into the **complete operating system** for a vertically integrated, investor-friendly development empire.
 
 — The Sip Steet Team
