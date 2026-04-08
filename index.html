@@ -3,249 +3,755 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sip Steet • Development Financial Model</title>
+  <title>Sip Street • Development Financial Model</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; }
-    .tab-active { border-bottom: 3px solid #22c55e; color: white; font-weight: 600; }
+    :root {
+      --bg:        #0c0f0a;
+      --surface:   #131710;
+      --surface2:  #1a1f16;
+      --border:    #252c1f;
+      --accent:    #a3e635;
+      --accent2:   #65a30d;
+      --amber:     #f59e0b;
+      --red:       #f87171;
+      --text:      #e8edd8;
+      --muted:     #6b7a5c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .mono { font-family: 'IBM Plex Mono', monospace; }
+    .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+
+    /* Header */
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #0f1a0a 0%, transparent 100%);
+    }
+    .logo-title { font-size: 3rem; line-height: 1; color: var(--accent); }
+    .logo-sub { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+    .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.1em;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 0 48px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .tab-btn {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 24px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      position: relative;
+      top: 1px;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* Main content */
+    .main { padding: 40px 48px; max-width: 1400px; margin: 0 auto; }
+
+    /* Assumption inputs */
+    .section-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .input-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .input-card:focus-within { border-color: var(--accent2); }
+    .input-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .input-field {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 500;
+      background: none;
+      border: none;
+      color: var(--text);
+      width: 100%;
+      outline: none;
+    }
+    .input-field::-webkit-inner-spin-button,
+    .input-field::-webkit-outer-spin-button { opacity: 0.4; }
+
+    /* Expandable section */
+    .expand-header {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+    .expand-header:hover { background: var(--surface2); }
+    .expand-header .total { font-family: 'IBM Plex Mono', monospace; color: var(--accent); }
+    .chevron { transition: transform 0.3s; font-size: 0.7rem; color: var(--muted); }
+    .expanded .chevron { transform: rotate(180deg); }
+    .expand-body {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      padding: 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .expand-body.open { display: grid; }
+    .sub-input-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .sub-input {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 8px 12px;
+      width: 100%;
+      outline: none;
+    }
+    .sub-input:focus { border-color: var(--accent2); }
+
+    /* Dashboard KPI cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .kpi-card.highlight::before { opacity: 1; background: var(--accent); }
+    .kpi-card.red-kpi::before { background: var(--red); }
+    .kpi-card.amber-kpi::before { background: var(--amber); }
+    .kpi-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .kpi-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .kpi-card.highlight .kpi-value { color: var(--accent); font-size: 1.6rem; }
+    .kpi-card.amber-kpi .kpi-value { color: var(--amber); }
+    .kpi-sub { font-size: 0.68rem; color: var(--muted); margin-top: 4px; }
+
+    /* P&L table */
+    .pnl-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .pnl-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    }
+    .pnl-row:last-child { border-bottom: none; }
+    .pnl-row.section-break { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 14px; }
+    .pnl-row.total-row { font-weight: 700; font-size: 1rem; }
+    .pnl-row.net-row {
+      border-top: 2px solid var(--accent);
+      margin-top: 8px;
+      padding-top: 16px;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .pnl-label { color: var(--text); }
+    .pnl-label.muted { color: var(--muted); font-size: 0.82rem; }
+    .pnl-val { font-family: 'IBM Plex Mono', monospace; }
+    .pos { color: var(--accent); }
+    .neg { color: var(--red); }
+    .neutral { color: var(--text); }
+
+    /* Split card */
+    .split-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .split-half { margin-bottom: 28px; }
+    .split-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .split-name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .split-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      padding: 7px 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    }
+    .split-row:last-child { border-bottom: none; font-weight: 700; }
+    .split-val { font-family: 'IBM Plex Mono', monospace; }
+    .split-divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+    /* Chart */
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .chart-title {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* Dashboard grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .main { padding: 24px 20px; }
+      .header { padding: 20px; }
+      .tabs { padding: 0 20px; }
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .divider { height: 1px; background: var(--border); margin: 32px 0; }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 min-h-screen">
-  <div class="max-w-7xl mx-auto p-6">
-    <div class="flex justify-between items-center mb-10">
-      <div>
-        <h1 class="text-5xl font-bold">Sip Steet</h1>
-        <p class="text-emerald-400 text-2xl">Real Estate Development Financial Model</p>
-      </div>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div>
+      <div class="display logo-title">Sip Street</div>
+      <div class="logo-sub">Real Estate Development · Financial Model</div>
     </div>
-
-    <!-- Tabs -->
-    <div class="flex border-b border-zinc-700 mb-8">
-      <button onclick="switchTab(0)" class="tab-active px-10 py-4 text-lg font-medium" id="tab0">Assumptions</button>
-      <button onclick="switchTab(1)" class="px-10 py-4 text-lg font-medium" id="tab1">Dashboard</button>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <div class="badge">SIPs Construction</div>
+      <div class="badge" id="homeCountBadge">49 Homes</div>
     </div>
+  </header>
 
-    <!-- Assumptions Tab -->
-    <div id="content0" class="tab-content">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div><label class="block text-xs text-zinc-400 mb-2">Total Land Acres</label><input id="landAcres" type="number" step="0.1" value="8.2" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
-        <div><label class="block text-xs text-zinc-400 mb-2">Infrastructure Acres</label><input id="infraAcres" type="number" step="0.1" value="2" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
-        <div><label class="block text-xs text-zinc-400 mb-2">Homes per Developable Acre</label><input id="homesPerAcre" type="number" value="8" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
-        <div><label class="block text-xs text-zinc-400 mb-2">Tree Count</label><input id="treeCount" type="number" value="600" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
-        <div><label class="block text-xs text-zinc-400 mb-2">Tree Price ($)</label><input id="treePrice" type="number" value="700" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
-        <div><label class="block text-xs text-zinc-400 mb-2">Land Cost ($)</label><input id="landCost" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
-        <div><label class="block text-xs text-zinc-400 mb-2">Home Sale Price ($)</label><input id="homePrice" type="number" value="190000" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-xl" oninput="recalculate()"></div>
+  <!-- Tabs -->
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="switchTab('assumptions')">Assumptions</button>
+    <button class="tab-btn" onclick="switchTab('dashboard')">Dashboard</button>
+  </nav>
+
+  <!-- ====== ASSUMPTIONS TAB ====== -->
+  <div id="tab-assumptions" class="tab-content active">
+    <div class="main">
+
+      <div class="section-title">Site & Revenue</div>
+      <div class="input-grid" style="margin-bottom:28px;">
+        <div class="input-card">
+          <label class="input-label">Total Land (Acres)</label>
+          <input id="landAcres" class="input-field" type="number" step="0.1" value="8.2" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Infrastructure (Acres)</label>
+          <input id="infraAcres" class="input-field" type="number" step="0.1" value="2" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Homes per Dev. Acre</label>
+          <input id="homesPerAcre" class="input-field" type="number" value="8" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Land Acquisition Cost ($)</label>
+          <input id="landCost" class="input-field" type="number" value="190000" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Home Sale Price ($)</label>
+          <input id="homePrice" class="input-field" type="number" value="190000" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Tree Count</label>
+          <input id="treeCount" class="input-field" type="number" value="600" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Tree Harvest Price ($)</label>
+          <input id="treePrice" class="input-field" type="number" value="700" oninput="recalculate()">
+        </div>
       </div>
 
-      <!-- Expandable Home Build Cost -->
-      <div class="mt-8">
-        <button onclick="toggleSection('homeBuildSection')" class="w-full flex justify-between bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-5 text-left font-medium">
-          <span>Home Build Cost (SIPs) — Total: <span id="homeBuildTotal" class="font-bold">$110,000</span></span>
-          <span>▼</span>
+      <div class="section-title">Financing & Timeline</div>
+      <div class="input-grid" style="margin-bottom:28px;">
+        <div class="input-card">
+          <label class="input-label">Project Duration (Months)</label>
+          <input id="months" class="input-field" type="number" value="24" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Construction Loan LTV (%)</label>
+          <input id="loanPct" class="input-field" type="number" value="70" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">Interest Rate (%)</label>
+          <input id="interestRate" class="input-field" type="number" step="0.25" value="10" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">LP Preferred Return (%)</label>
+          <input id="prefReturn" class="input-field" type="number" step="0.5" value="8" oninput="recalculate()">
+        </div>
+        <div class="input-card">
+          <label class="input-label">SIPs Speed Reduction (%)</label>
+          <input id="sipReduction" class="input-field" type="number" value="40" oninput="recalculate()">
+          <div style="font-size:0.62rem;color:var(--muted);margin-top:4px;">Reduces interest carry</div>
+        </div>
+      </div>
+
+      <!-- Home Build Cost -->
+      <div style="margin-bottom:12px;">
+        <button class="expand-header" id="homeBuildToggle" onclick="toggleExpand('homeBuildBody','homeBuildToggle')">
+          <span>Home Build Cost (SIPs) — <span class="total" id="homeBuildTotal">$0</span></span>
+          <span class="chevron">▼</span>
         </button>
-        <div id="homeBuildSection" class="hidden mt-4 grid grid-cols-2 gap-4">
-          <!-- Populated by JS -->
-        </div>
+        <div class="expand-body" id="homeBuildBody"></div>
       </div>
 
-      <!-- Expandable Infrastructure -->
-      <div class="mt-8">
-        <button onclick="toggleSection('infraSection')" class="w-full flex justify-between bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-5 text-left font-medium">
-          <span>Infrastructure & Soft Costs per Home — Total: <span id="infraTotal" class="font-bold">$28,000</span></span>
-          <span>▼</span>
+      <!-- Infrastructure -->
+      <div style="margin-bottom:12px;">
+        <button class="expand-header" id="infraToggle" onclick="toggleExpand('infraBody','infraToggle')">
+          <span>Infrastructure & Soft Costs per Home — <span class="total" id="infraTotal">$0</span></span>
+          <span class="chevron">▼</span>
         </button>
-        <div id="infraSection" class="hidden mt-4 grid grid-cols-2 gap-4">
-          <!-- Populated by JS -->
-        </div>
+        <div class="expand-body" id="infraBody"></div>
       </div>
+
     </div>
+  </div>
 
-    <!-- Dashboard Tab -->
-    <div id="content1" class="tab-content hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div class="lg:col-span-7 bg-zinc-900 rounded-3xl p-8">
-          <h3 class="text-2xl font-semibold mb-6">Profit & Loss Summary</h3>
-          <div id="pnlSummary" class="space-y-5 text-lg"></div>
+  <!-- ====== DASHBOARD TAB ====== -->
+  <div id="tab-dashboard" class="tab-content">
+    <div class="main">
+
+      <!-- KPI row -->
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <div class="dashboard-grid">
+
+        <!-- P&L -->
+        <div class="pnl-card">
+          <div class="section-title" style="margin-bottom:20px;">Profit & Loss Summary</div>
+          <div id="pnlSummary"></div>
         </div>
 
-        <div class="lg:col-span-5 bg-zinc-900 rounded-3xl p-8">
-          <h3 class="text-2xl font-semibold mb-6">GP / LP Split (50/50)</h3>
-          <div id="gpLpBreakdown" class="space-y-6"></div>
+        <!-- GP/LP Split -->
+        <div class="split-card">
+          <div class="section-title">GP / LP Waterfall (50/50)</div>
+          <div id="gpLpBreakdown"></div>
         </div>
 
-        <div class="lg:col-span-12 bg-zinc-900 rounded-3xl p-8">
-          <h3 class="font-semibold mb-4">Cash Waterfall</h3>
-          <canvas id="waterfallChart" class="w-full h-80"></canvas>
-        </div>
       </div>
+
+      <!-- Waterfall chart -->
+      <div class="chart-card" style="margin-top:16px;">
+        <div class="chart-title">Cash Waterfall</div>
+        <canvas id="waterfallChart" style="max-height:280px;"></canvas>
+      </div>
+
     </div>
   </div>
 
   <script>
+    // ─── State ────────────────────────────────────────────────────
+    let chartInstance = null;
+
     let homeBuildComponents = {
-      foundation: 15000,
-      sipsWallsRoof: 30000,
-      exteriorFinishes: 20000,
-      interiorFinishes: 22000,
+      foundation:              15000,
+      sipsWallsRoof:           30000,
+      exteriorFinishes:        20000,
+      interiorFinishes:        22000,
       mechanicalElectricalPlumbing: 18000,
-      appliancesFixtures: 10000,
-      contractorOverhead: 15000
+      appliancesFixtures:      10000,
+      contractorOverhead:      15000
     };
 
     let infraComponents = {
-      utilityTaps: 8000,
+      utilityTaps:    8000,
       roadCurbSidewalk: 7000,
-      stormDrainage: 4000,
-      permitsFees: 5000,
+      stormDrainage:  4000,
+      permitsFees:    5000,
       engineeringLegal: 3000,
-      sitePrep: 2000
+      sitePrep:       2000
     };
 
-    function toggleSection(id) {
-      document.getElementById(id).classList.toggle('hidden');
+    const labels = {
+      foundation: 'Foundation',
+      sipsWallsRoof: 'SIPs Walls & Roof',
+      exteriorFinishes: 'Exterior Finishes',
+      interiorFinishes: 'Interior Finishes',
+      mechanicalElectricalPlumbing: 'MEP',
+      appliancesFixtures: 'Appliances & Fixtures',
+      contractorOverhead: 'Contractor Overhead',
+      utilityTaps: 'Utility Taps',
+      roadCurbSidewalk: 'Road / Curb / Sidewalk',
+      stormDrainage: 'Storm Drainage',
+      permitsFees: 'Permits & Fees',
+      engineeringLegal: 'Engineering & Legal',
+      sitePrep: 'Site Prep'
+    };
+
+    // ─── Tab switching ─────────────────────────────────────────────
+    function switchTab(name) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      event.currentTarget.classList.add('active');
+      if (name === 'dashboard') renderWaterfall();
     }
 
-    function renderSubComponents() {
-      // Home Build
-      let html = '';
-      Object.keys(homeBuildComponents).forEach(key => {
-        const niceName = key.replace(/([A-Z])/g, ' $1').trim();
-        html += `<div><label class="block text-xs text-zinc-400 mb-1">${niceName}</label>
-                 <input type="number" value="${homeBuildComponents[key]}" 
-                        class="w-full bg-zinc-800 border border-zinc-600 rounded-xl px-4 py-3" 
-                        oninput="updateComponent('home', '${key}', this.value)"></div>`;
-      });
-      document.getElementById('homeBuildSection').innerHTML = html;
+    // ─── Expand/collapse ──────────────────────────────────────────
+    function toggleExpand(bodyId, toggleId) {
+      const body = document.getElementById(bodyId);
+      const btn  = document.getElementById(toggleId);
+      body.classList.toggle('open');
+      btn.classList.toggle('expanded');
+    }
 
-      // Infrastructure
-      html = '';
-      Object.keys(infraComponents).forEach(key => {
-        const niceName = key.replace(/([A-Z])/g, ' $1').trim();
-        html += `<div><label class="block text-xs text-zinc-400 mb-1">${niceName}</label>
-                 <input type="number" value="${infraComponents[key]}" 
-                        class="w-full bg-zinc-800 border border-zinc-600 rounded-xl px-4 py-3" 
-                        oninput="updateComponent('infra', '${key}', this.value)"></div>`;
-      });
-      document.getElementById('infraSection').innerHTML = html;
+    // ─── Render sub-component inputs ──────────────────────────────
+    function renderSubComponents() {
+      document.getElementById('homeBuildBody').innerHTML = Object.keys(homeBuildComponents).map(key => `
+        <div>
+          <label class="sub-input-label">${labels[key] || key}</label>
+          <input class="sub-input" type="number" value="${homeBuildComponents[key]}"
+            oninput="updateComponent('home','${key}',this.value)">
+        </div>`).join('');
+
+      document.getElementById('infraBody').innerHTML = Object.keys(infraComponents).map(key => `
+        <div>
+          <label class="sub-input-label">${labels[key] || key}</label>
+          <input class="sub-input" type="number" value="${infraComponents[key]}"
+            oninput="updateComponent('infra','${key}',this.value)">
+        </div>`).join('');
 
       updateTotals();
     }
 
     function updateComponent(type, key, value) {
-      if (type === 'home') homeBuildComponents[key] = parseFloat(value) || 0;
-      if (type === 'infra') infraComponents[key] = parseFloat(value) || 0;
+      const v = parseFloat(value) || 0;
+      if (type === 'home') homeBuildComponents[key] = v;
+      if (type === 'infra') infraComponents[key] = v;
       updateTotals();
       recalculate();
     }
 
     function updateTotals() {
-      const homeTotal = Object.values(homeBuildComponents).reduce((a,b) => a + b, 0);
-      const infraTotal = Object.values(infraComponents).reduce((a,b) => a + b, 0);
-      document.getElementById('homeBuildTotal').textContent = '$' + homeTotal.toLocaleString();
-      document.getElementById('infraTotal').textContent = '$' + infraTotal.toLocaleString();
+      const hTotal = Object.values(homeBuildComponents).reduce((a,b) => a+b, 0);
+      const iTotal = Object.values(infraComponents).reduce((a,b) => a+b, 0);
+      document.getElementById('homeBuildTotal').textContent = '$' + fmt(hTotal);
+      document.getElementById('infraTotal').textContent     = '$' + fmt(iTotal);
     }
 
-    function recalculate() {
-      const landAcres = parseFloat(document.getElementById('landAcres').value) || 8.2;
-      const infraAcres = parseFloat(document.getElementById('infraAcres').value) || 2;
-      const homesPerAcre = parseFloat(document.getElementById('homesPerAcre').value) || 8;
-      const treeCount = parseFloat(document.getElementById('treeCount').value) || 600;
-      const treePrice = parseFloat(document.getElementById('treePrice').value) || 700;
-      const landCost = parseFloat(document.getElementById('landCost').value) || 190000;
-      const homePrice = parseFloat(document.getElementById('homePrice').value) || 190000;
-      const months = parseFloat(document.getElementById('months').value) || 24;
-      const sipReduction = parseFloat(document.getElementById('sipReduction').value) || 40;
-      const loanPct = parseFloat(document.getElementById('loanPct').value) || 70;
-      const interestRate = parseFloat(document.getElementById('interestRate').value) || 10;
-      const prefReturn = parseFloat(document.getElementById('prefReturn').value) || 8;
+    // ─── Formatting helpers ────────────────────────────────────────
+    function fmt(n)  { return Math.round(n).toLocaleString('en-US'); }
+    function fmtD(n) { return '$' + fmt(n); }
+    function fmtP(n) { return n.toFixed(1) + '%'; }
 
-      const developable = landAcres - infraAcres;
-      const totalHomes = Math.round(developable * homesPerAcre);
+    function g(id) { return parseFloat(document.getElementById(id)?.value) || 0; }
 
-      const treeRev = treeCount * treePrice;
-      const homeRev = totalHomes * homePrice;
+    // ─── Core calculation ──────────────────────────────────────────
+    function calc() {
+      const landAcres   = g('landAcres')   || 8.2;
+      const infraAcres  = g('infraAcres')  || 2;
+      const homesPerAcre= g('homesPerAcre')|| 8;
+      const treeCount   = g('treeCount')   || 600;
+      const treePrice   = g('treePrice')   || 700;
+      const landCost    = g('landCost')    || 190000;
+      const homePrice   = g('homePrice')   || 190000;
+      const months      = g('months')      || 24;
+      const sipReduction= g('sipReduction')|| 40;
+      const loanPct     = g('loanPct')     || 70;
+      const interestRate= g('interestRate')|| 10;
+      const prefReturn  = g('prefReturn')  || 8;
+
+      const developableAcres = Math.max(0, landAcres - infraAcres);
+      const totalHomes       = Math.round(developableAcres * homesPerAcre);
+
+      const treeRev  = treeCount * treePrice;
+      const homeRev  = totalHomes * homePrice;
       const totalRev = treeRev + homeRev;
 
-      const homeBuildTotal = Object.values(homeBuildComponents).reduce((a,b) => a + b, 0);
-      const infraTotal = Object.values(infraComponents).reduce((a,b) => a + b, 0);
+      const homeBuildTotal = Object.values(homeBuildComponents).reduce((a,b)=>a+b, 0);
+      const infraTotal     = Object.values(infraComponents).reduce((a,b)=>a+b, 0);
 
-      const directCosts = landCost + (totalHomes * homeBuildTotal) + (totalHomes * infraTotal);
-      const contingency = directCosts * 0.10;
-      const subtotal = directCosts + contingency;
-      const loanAmount = subtotal * (loanPct / 100);
-      const lenderFees = loanAmount * 0.015;
-      const interestCarry = loanAmount * (interestRate / 100) * (months / 12) * 0.5 * (1 - sipReduction / 100);
+      const landAcqFee     = landCost * 0.015;
+      const homeBuildCost  = totalHomes * homeBuildTotal;
+      const infraCostTotal = totalHomes * infraTotal;
+      const directCosts    = landCost + landAcqFee + homeBuildCost + infraCostTotal;
+      const contingency    = directCosts * 0.10;
+      const subtotal       = directCosts + contingency;
+
+      const loanAmount     = subtotal * (loanPct / 100);
+      const lenderFees     = loanAmount * 0.015;
+      const interestCarry  = loanAmount * (interestRate / 100) * (months / 12) * 0.5 * (1 - sipReduction / 100);
+
       const totalCost = subtotal + lenderFees + interestCarry;
-
       const netProfit = totalRev - totalCost;
-      const equity = totalCost * 0.3;
-      const prefAmount = equity * (prefReturn / 100) * (months / 12);
-      const remainingProfit = Math.max(0, netProfit - prefAmount);
-      const gpShare = remainingProfit * 0.5 + (landCost * 0.015);
-      const lpShare = prefAmount + (remainingProfit * 0.5);
+      const margin    = totalRev > 0 ? (netProfit / totalRev) * 100 : 0;
+
+      // Equity & LP pref
+      const equityRequired = totalCost * (1 - loanPct / 100);
+      const prefAmount     = equityRequired * (prefReturn / 100) * (months / 12);
+      const remainingProfit= Math.max(0, netProfit - prefAmount);
+      const gpShare        = (remainingProfit * 0.5) + landAcqFee;
+      const lpShare        = prefAmount + (remainingProfit * 0.5);
+
+      // Returns
+      const equityMultiple = equityRequired > 0 ? (equityRequired + lpShare) / equityRequired : 0;
+      const annualizedROI  = months > 0 ? (lpShare / equityRequired) / (months / 12) * 100 : 0;
+
+      const costPerHome = totalHomes > 0 ? totalCost / totalHomes : 0;
+      const revenuePerHome = totalHomes > 0 ? homePrice : 0;
+
+      return {
+        totalHomes, developableAcres,
+        treeRev, homeRev, totalRev,
+        landCost, landAcqFee, homeBuildCost, infraCostTotal,
+        contingency, lenderFees, interestCarry,
+        directCosts, subtotal, totalCost,
+        netProfit, margin,
+        equityRequired, loanAmount, lenderFees,
+        prefAmount, prefReturn, remainingProfit, gpShare, lpShare,
+        equityMultiple, annualizedROI,
+        costPerHome, revenuePerHome,
+        months
+      };
+    }
+
+    // ─── Recalculate & render all ──────────────────────────────────
+    function recalculate() {
+      const r = calc();
+
+      // badge
+      document.getElementById('homeCountBadge').textContent = r.totalHomes + ' Homes';
+
+      // KPIs
+      document.getElementById('kpiGrid').innerHTML = [
+        { label: 'Net Profit',       value: fmtD(r.netProfit),           cls: 'highlight' },
+        { label: 'Profit Margin',    value: fmtP(r.margin),              cls: r.margin > 20 ? '' : 'amber-kpi' },
+        { label: 'Total Revenue',    value: fmtD(r.totalRev),            cls: '' },
+        { label: 'Total Cost',       value: fmtD(r.totalCost),           cls: 'red-kpi' },
+        { label: 'Equity Required',  value: fmtD(r.equityRequired),      cls: 'amber-kpi' },
+        { label: 'Loan Amount',      value: fmtD(r.loanAmount),          cls: '' },
+        { label: 'LP Equity Multiple', value: r.equityMultiple.toFixed(2) + 'x', cls: '' },
+        { label: 'Total Homes',      value: r.totalHomes,                cls: '' },
+        { label: 'Cost / Home',      value: fmtD(r.costPerHome),         cls: '' },
+        { label: 'Project Months',   value: r.months + ' mo',            cls: '' },
+      ].map(k => `
+        <div class="kpi-card ${k.cls || ''}">
+          <div class="kpi-label">${k.label}</div>
+          <div class="kpi-value mono">${k.value}</div>
+        </div>`).join('');
 
       // P&L
       document.getElementById('pnlSummary').innerHTML = `
-        <div class="space-y-5">
-          <div class="flex justify-between"><span class="text-emerald-400">Tree Harvest Revenue</span><span>+$${Math.round(treeRev).toLocaleString()}</span></div>
-          <div class="flex justify-between"><span class="text-emerald-400">Home Sales Revenue</span><span>+$${Math.round(homeRev).toLocaleString()}</span></div>
-          <div class="flex justify-between border-t pt-4 font-semibold"><span>Total Revenue</span><span>$${Math.round(totalRev).toLocaleString()}</span></div>
+        <div class="pnl-row"><span class="pnl-label">Tree Harvest Revenue</span><span class="pnl-val pos">+${fmtD(r.treeRev)}</span></div>
+        <div class="pnl-row"><span class="pnl-label">Home Sales Revenue</span><span class="pnl-val pos">+${fmtD(r.homeRev)}</span></div>
+        <div class="pnl-row section-break total-row"><span class="pnl-label">Total Revenue</span><span class="pnl-val neutral">${fmtD(r.totalRev)}</span></div>
 
-          <div class="flex justify-between"><span>Land Acquisition</span><span>-$${Math.round(landCost).toLocaleString()}</span></div>
-          <div class="flex justify-between"><span>Acquisition Fee (1.5%)</span><span>-$${(landCost*0.015).toFixed(0)}</span></div>
-          <div class="flex justify-between"><span>Home Build Cost</span><span>-$${Math.round(totalHomes * homeBuildTotal).toLocaleString()}</span></div>
-          <div class="flex justify-between"><span>Infrastructure & Soft Costs</span><span>-$${Math.round(totalHomes * infraTotal).toLocaleString()}</span></div>
-          <div class="flex justify-between"><span>Contingency (10%)</span><span>-$${Math.round(contingency).toLocaleString()}</span></div>
-          <div class="flex justify-between"><span>Interest Carry</span><span>-$${Math.round(interestCarry).toLocaleString()}</span></div>
-          <div class="flex justify-between border-t pt-4 font-semibold text-red-400"><span>Total Costs</span><span>-$${Math.round(totalCost).toLocaleString()}</span></div>
+        <div class="pnl-row" style="padding-top:16px;"><span class="pnl-label">Land Acquisition</span><span class="pnl-val neg">-${fmtD(r.landCost)}</span></div>
+        <div class="pnl-row"><span class="pnl-label muted">Acquisition Fee (1.5%)</span><span class="pnl-val neg">-${fmtD(r.landAcqFee)}</span></div>
+        <div class="pnl-row"><span class="pnl-label">Home Build Cost</span><span class="pnl-val neg">-${fmtD(r.homeBuildCost)}</span></div>
+        <div class="pnl-row"><span class="pnl-label">Infrastructure & Soft Costs</span><span class="pnl-val neg">-${fmtD(r.infraCostTotal)}</span></div>
+        <div class="pnl-row"><span class="pnl-label muted">Contingency (10%)</span><span class="pnl-val neg">-${fmtD(r.contingency)}</span></div>
+        <div class="pnl-row"><span class="pnl-label muted">Lender Fees (1.5%)</span><span class="pnl-val neg">-${fmtD(r.lenderFees)}</span></div>
+        <div class="pnl-row"><span class="pnl-label muted">Interest Carry</span><span class="pnl-val neg">-${fmtD(r.interestCarry)}</span></div>
+        <div class="pnl-row section-break total-row"><span class="pnl-label" style="color:var(--red);">Total Costs</span><span class="pnl-val neg">-${fmtD(r.totalCost)}</span></div>
 
-          <div class="flex justify-between border-t border-emerald-500 pt-6 text-2xl font-bold text-emerald-400">
-            <span>NET PROFIT</span><span>$${Math.round(netProfit).toLocaleString()}</span>
-          </div>
-        </div>
+        <div class="pnl-row net-row"><span class="pnl-label" style="color:var(--accent);">NET PROFIT</span><span class="pnl-val pos">${fmtD(r.netProfit)}</span></div>
       `;
 
       // GP/LP
       document.getElementById('gpLpBreakdown').innerHTML = `
-        <div>
-          <p class="text-emerald-400 font-semibold mb-4">GP Share</p>
-          <div class="space-y-3">
-            <div class="flex justify-between"><span>Acquisition Fee</span><span>$${(landCost*0.015).toFixed(0)}</span></div>
-            <div class="flex justify-between"><span>Profit Share (50%)</span><span>$${Math.round(remainingProfit*0.5).toLocaleString()}</span></div>
-            <div class="flex justify-between font-bold pt-3"><span>Total GP</span><span>$${Math.round(gpShare).toLocaleString()}</span></div>
-          </div>
+        <div class="split-half">
+          <div class="split-label">General Partner</div>
+          <div class="split-name" style="color:var(--accent);">GP</div>
+          <div class="split-row"><span>Acquisition Fee (1.5%)</span><span class="split-val pos">${fmtD(r.landAcqFee)}</span></div>
+          <div class="split-row"><span>Profit Share (50%)</span><span class="split-val pos">${fmtD(r.remainingProfit * 0.5)}</span></div>
+          <div class="split-row"><span style="color:var(--accent);">Total GP</span><span class="split-val pos">${fmtD(r.gpShare)}</span></div>
         </div>
-        <div>
-          <p class="text-emerald-400 font-semibold mb-4">LP Share</p>
-          <div class="space-y-3">
-            <div class="flex justify-between"><span>Preferred Return (${prefReturn}%)</span><span>$${Math.round(prefAmount).toLocaleString()}</span></div>
-            <div class="flex justify-between"><span>Profit Share (50%)</span><span>$${Math.round(remainingProfit*0.5).toLocaleString()}</span></div>
-            <div class="flex justify-between font-bold pt-3"><span>Total LP</span><span>$${Math.round(lpShare).toLocaleString()}</span></div>
-          </div>
+        <div class="split-divider"></div>
+        <div class="split-half">
+          <div class="split-label">Limited Partner</div>
+          <div class="split-name" style="color:var(--amber);">LP</div>
+          <div class="split-row"><span>Pref. Return (${r.prefReturn}% / yr)</span><span class="split-val" style="color:var(--amber);">${fmtD(r.prefAmount)}</span></div>
+          <div class="split-row"><span>Profit Share (50%)</span><span class="split-val" style="color:var(--amber);">${fmtD(r.remainingProfit * 0.5)}</span></div>
+          <div class="split-row"><span style="color:var(--amber);">Total LP</span><span class="split-val" style="color:var(--amber);">${fmtD(r.lpShare)}</span></div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:4px;">
+          <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">LP Return Metrics</div>
+          <div class="split-row"><span>Equity In</span><span class="split-val">${fmtD(r.equityRequired)}</span></div>
+          <div class="split-row"><span>Equity Multiple</span><span class="split-val" style="color:var(--amber);">${r.equityMultiple.toFixed(2)}x</span></div>
+          <div class="split-row"><span>Annualized Return</span><span class="split-val" style="color:var(--amber);">${fmtP(r.annualizedROI)}</span></div>
         </div>
       `;
     }
 
+    // ─── Waterfall chart ──────────────────────────────────────────
     function renderWaterfall() {
+      const r = calc();
       const ctx = document.getElementById('waterfallChart');
-      if (chartInstance) chartInstance.destroy();
+      if (!ctx) return;
+      if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+
+      const bars = [
+        { label: 'Tree Revenue',    value: r.treeRev,        color: '#a3e635' },
+        { label: 'Home Revenue',    value: r.homeRev,        color: '#a3e635' },
+        { label: 'Land + Acq Fee', value: -(r.landCost + r.landAcqFee), color: '#f87171' },
+        { label: 'Build Cost',      value: -r.homeBuildCost, color: '#f87171' },
+        { label: 'Infrastructure',  value: -r.infraCostTotal,color: '#f87171' },
+        { label: 'Contingency',     value: -r.contingency,   color: '#fca5a5' },
+        { label: 'Financing',       value: -(r.lenderFees + r.interestCarry), color: '#fca5a5' },
+        { label: 'Net Profit',      value: r.netProfit,      color: r.netProfit >= 0 ? '#22c55e' : '#f87171' },
+      ];
+
       chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Trees', 'Home Sales', 'Costs', 'Net Profit'],
-          datasets: [{ data: [420000, 9500000, -8800000, 2107350], backgroundColor: ['#10b981','#10b981','#ef4444','#22c55e'] }]
+          labels: bars.map(b => b.label),
+          datasets: [{
+            data: bars.map(b => b.value),
+            backgroundColor: bars.map(b => b.color),
+            borderRadius: 6,
+            borderSkipped: false,
+          }]
         },
-        options: { scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => ' $' + Math.abs(Math.round(ctx.raw)).toLocaleString()
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: { color: '#6b7a5c', font: { family: 'IBM Plex Mono', size: 10 } }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: {
+                color: '#6b7a5c',
+                font: { family: 'IBM Plex Mono', size: 10 },
+                callback: v => '$' + (Math.abs(v) >= 1000000
+                  ? (v/1000000).toFixed(1) + 'M'
+                  : (v/1000).toFixed(0) + 'K')
+              }
+            }
+          }
+        }
       });
     }
 
-    window.onload = () => {
+    // ─── Init ──────────────────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', () => {
       renderSubComponents();
       recalculate();
-      switchTab(1);
-      renderWaterfall();
-    };
+    });
   </script>
 </body>
 </html>
