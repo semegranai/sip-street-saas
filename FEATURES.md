@@ -1,62 +1,43 @@
 # Sip Steet Features Specification
 
-**Product Philosophy**  
-Tesla first-principles + Toyota lean discipline. Every feature eliminates waste and creates a seamless experience from modeling to capital deployment.
+**Project**: Internal Financial Modeling Platform  
+**Client**: Sip Steet Group  
+**Date**: April 2026
 
----
+### Core Features (Phase 1)
 
-## Core Feature: Link Dropping / Auto-Population
+1. **Link Dropping / Auto-Population**
+   - Paste Zillow, Redfin, or MLS link
+   - Auto-extract address, sqft, lot size, price, comps, and basic assumptions
+   - Allow full manual override of any auto-filled field
 
-**"Drop & Model" Engine**  
-Paste any Zillow, Redfin, Realtor.com, or MLS link → Sip Steet automatically:
-- Extracts property data (address, sqft, lot size, price, year built, photos)
-- Pulls recent comps and market data
-- Pre-fills the full financial model
-- Generates a complete investor-ready report + P&L + waterfall
+2. **Editable Cost Sub-Components**
+   - Home Build Cost (foundation, SIP panels, finishes, MEP, etc.)
+   - Infrastructure & Soft Costs (utilities, roads, permits, engineering, etc.)
+   - Real-time total roll-up
 
----
+3. **Unified Dashboard**
+   - Clean Profit & Loss statement
+   - GP/LP split (50/50 with preferred return and acquisition fee)
+   - Cash waterfall chart
+   - Key metrics summary
 
-## Investor Experience Flow (End-to-End)
+4. **Professional PDF Export**
+   - Standardized branded report format
+   - Includes cover page, assumptions, P&L, GP/LP breakdown, waterfall, and risk summary
+   - Consistent across all deals
 
-**Investor Journey** (the most important user flow)
+5. **Project Management**
+   - Save / load projects
+   - Basic version history
 
-1. Investor receives a **branded Sip Steet report link** or PDF.
-2. Clicks prominent **“Invest in This Project”** button.
-3. Simple form appears:
-   - Desired investment amount ($X input field)
-   - Name, email, phone
-   - Accredited investor confirmation checkbox
-4. One-click **soft commitment** generated via PandaDoc (pre-filled with project details and amount).
-5. Investor signs electronically.
-6. Automatic redirect to **Sip Steet Investor Portal** (invest.sipsteet.com).
-7. Portal shows:
-   - Project status dashboard
-   - Capital call schedule
-   - Distribution history
-   - Real-time SIP manufacturing updates
-   - All tax documents and reports
+### Future Features (Phase 2+)
 
-**Technical Integration Plans**:
-- PandaDoc API for automated document creation and e-signature
-- Webhook from PandaDoc → update portal status instantly
-- Use existing best-in-class investor relations platforms (AppFolio, DealCloud, InvestorFlow, or similar) for the backend fund accounting
-- Our front-end will be fully branded and seamless (investors never feel they left Sip Steet)
+- Multi-asset class support with customized variables for each type
+- AI-assisted assumption suggestions and report narrative generation
+- Team collaboration and commenting
+- Portfolio overview dashboard
+- Integration with PandaDoc for soft commitments
+- Branded investor portal frontend
 
-**Future Enhancements**:
-- One-click wire transfer / ACH link after soft commitment
-- Secondary market / LP transfer functionality
-- Quarterly automated performance reports generated from Sip Steet data
-
----
-
-## Multi-Asset Class Calculators
-
-(Full list remains the same as previous version – residential through data centers, with editable sub-components for each.)
-
----
-
-**This specification makes Sip Steet the complete bridge between modeling, investor acquisition, commitment, and capital deployment.**
-
-We control the entire investor experience from the first link to the final wire transfer.
-
-— The Sip Steet Team
+All features must maintain calculation consistency and report quality as the highest priority.
