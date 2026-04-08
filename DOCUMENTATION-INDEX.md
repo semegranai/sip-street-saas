@@ -1,110 +1,95 @@
 # Sip Steet Documentation Index
 
-This file serves as the central index for all project documentation.  
-It is maintained by the Sip Steet Technology Team.
-
-**Last Updated**: April 7, 2026
+**Last Updated**: April 7, 2026  
+**Project**: Sip Steet – Internal Development Financial Modeling Platform  
+**Purpose**: Central reference for all project documentation. This index is maintained by the Sip Steet Technology Team.
 
 ## Core Project Documents
 
 ### 1. `README.md`
-- Purpose: Public-facing overview of the project for anyone visiting the repo.
-- Content: Project description, current status, live demo link, how to run locally, and links to other docs.
+- Public-facing overview of the project, current status, live demo link, and links to other docs.
 
 ### 2. `ROADMAP.md`
-- Purpose: High-level strategic and technical roadmap.
-- Content: Phases, timelines, priorities, success metrics, and guiding principles (Tesla + Toyota influence).
+- High-level strategic and technical roadmap, phases, timelines, and guiding principles (Tesla + Toyota influence).
 
 ### 3. `FEATURES.md`
-- Purpose: Detailed specification of all current and planned features.
-- Content: Link dropping, sub-component editors, P&L, GP/LP split, PDF export, multi-asset class support, investor flow, etc.
+- Detailed specification of all current and planned features, including link dropping, multi-asset class support, and investor flow.
 
 ### 4. `TECHNICAL-SPECS.md`
-- Purpose: Technical architecture and implementation guidelines for the development team.
-- Content: Recommended stack (Next.js, Supabase, etc.), coding standards, architecture decisions, and evolution plan.
+- Technical architecture, recommended stack, coding standards, and implementation guidelines for the development team.
 
-### 5. `SECURITY-AND-COMPLIANCE.md`
-- Purpose: Security requirements and compliance roadmap.
-- Content: Current requirements, future SOC 2 goals, data privacy, scraping compliance, audit logging.
+### 5. `UI-UX-DESIGN-GUIDELINES.md` ← **NEEDS UPDATING**
+- Comprehensive UI/UX standards, color palette, typography, component library, layout patterns, and design philosophy.
+- Ensures visual consistency, clarity, trust, and usability across the entire platform.
 
-### 6. `DATA-MODEL.md`
-- Purpose: Database schema and data structure specification.
-- Content: Project entity, cost components, assumptions, reports, user roles, version history.
+### 6. `CALCULATION-ENGINE.md`
+- Single source of truth for all financial formulas and calculations (P&L, GP/LP, interest carry, contingency, etc.).
 
-### 7. `CALCULATION-ENGINE.md`
-- Purpose: Single source of truth for all financial calculations.
-- Content: Detailed formulas for P&L, GP/LP waterfall, interest carry, contingency, etc. Must be referenced by all code.
+### 7. `PDF-REPORT-SPEC.md`
+- Exact specification for all generated PDF reports (layout, sections, branding, asset-class variations).
 
-### 8. `PDF-REPORT-SPEC.md`
-- Purpose: Exact specification for all generated PDF reports.
-- Content: Standardized layout, sections, branding guidelines, page order, and asset-class variations.
+### 8. `SECURITY-AND-COMPLIANCE.md`
+- Security requirements, data privacy, compliance roadmap, and future SOC 2 goals.
 
-### 9. `API-SPECS.md` (Future)
-- Purpose: Internal and external API documentation.
-- Content: Endpoints, authentication, rate limits, and integration points (PandaDoc, etc.).
+### 9. `DATA-MODEL.md`
+- Database schema and data structure (projects, assumptions, cost components, reports, users, version history).
 
 ---
 
 ## Operational & Process Documents
 
 ### 10. `DEVELOPMENT-GUIDELINES.md`
-- Purpose: Coding standards and workflow for the team.
-- Content: Git workflow, naming conventions, testing requirements, PR process, AI usage guidelines.
+- Coding standards, Git workflow, PR process, testing requirements, and AI usage guidelines.
 
 ### 11. `TESTING-STRATEGY.md`
-- Purpose: How we ensure calculation accuracy and reliability.
-- Content: Unit tests for calculations, integration tests, manual verification checklist, regression testing plan.
+- Testing approach for calculation accuracy, regression testing, and manual verification.
 
 ### 12. `DEPLOYMENT-AND-OPS.md`
-- Purpose: Deployment, monitoring, and operations guide.
-- Content: Vercel / hosting setup, environment variables, backup strategy, monitoring tools.
+- Deployment process, hosting, monitoring, backups, and operations guide.
 
 ### 13. `CHANGELOG.md`
-- Purpose: Record of all major updates to the platform.
+- Record of all major updates and changes to the platform.
+
+### 14. `BRANDING-AND-REPORT-STYLE-GUIDE.md`
+- Visual and content standards for reports, marketing materials, and external communications.
+
+---
+
+## Investor & External Experience Documents
+
+### 15. `INVESTOR-FLOW-SPECS.md`
+- Detailed specification of the investor journey: report link → soft commitment → PandaDoc → Investor Portal.
+
+### 16. `API-SPECS.md` (Planned)
+- Internal and external API documentation.
 
 ---
 
 ## Asset-Class Specific Documents (Created as needed)
 
-### 14. `RESIDENTIAL-SPECS.md`
-- Detailed variables, sub-components, and report templates for residential (luxury, workforce, shelters).
-
-### 15. `COMMERCIAL-SPECS.md`
-- Office, retail, mixed-use specifics.
-
-### 16. `INDUSTRIAL-SPECS.md`
-- Warehouse, distribution, cold storage.
-
-### 17. `DATA-CENTER-SPECS.md`
-- IT load, PUE, redundancy, etc.
-
-### 18. `HOSPITALITY-SPECS.md`
-- ADR, occupancy, RevPAR, etc.
-
-(Additional files will be created for Solar, Healthcare, etc. as we expand.)
-
----
-
-## Investor & External Documents
-
-### 19. `INVESTOR-FLOW-SPECS.md`
-- Purpose: Detailed specification of the investor journey.
-- Content: Link → soft commitment → PandaDoc → Investor Portal flow, form fields, integration points.
-
-### 20. `BRANDING-AND-REPORT-STYLE-GUIDE.md`
-- Purpose: Visual and content standards for all reports and external materials.
+- `RESIDENTIAL-SPECS.md`
+- `INDUSTRIAL-SPECS.md`
+- `DATA-CENTER-SPECS.md`
+- `HOSPITALITY-SPECS.md`
+- `COMMERCIAL-SPECS.md`
+- And others as we expand
 
 ---
 
 ## How to Use This Index
 
-- All documents are living files.
-- Update the "Last Updated" date when making significant changes.
-- Link between documents where relevant (e.g., ROADMAP links to FEATURES and TECHNICAL-SPECS).
-- New documents should be added here when created.
+- All documents are living files — update the "Last Updated" date when making significant changes.
+- Cross-link between documents where relevant (e.g., ROADMAP links to FEATURES, TECHNICAL-SPECS, and UI-UX-DESIGN-GUIDELINES).
+- When creating a new document, add it to this index with a short description.
+- Keep documents concise but detailed enough for a 3rd-party developer or new team member to understand the intent.
 
-**Recommendation**: Start by creating the first 9 core documents. The asset-class specific ones can be added as we expand beyond residential.
+**Current Priority Order for Creation**:
+1. `CALCULATION-ENGINE.md` (critical for consistency)
+2. `PDF-REPORT-SPEC.md`
+3. `TECHNICAL-SPECS.md`
+4. `TESTING-STRATEGY.md`
+5. `INVESTOR-FLOW-SPECS.md`
 
-This structure ensures the project remains well-documented, maintainable, and scalable as we grow from a simple modeling tool into a comprehensive internal platform.
+This structure ensures the Sip Steet platform remains well-documented, maintainable, and scalable as we grow from a residential modeling tool into a comprehensive multi-asset class platform.
 
 — Sip Steet Technology Team
