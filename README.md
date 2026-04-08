@@ -2,24 +2,15 @@
 
 **Real Estate Development Financial Model**
 
-A clean, interactive tool built for real estate developers to run pro formas, sensitivity analysis, risk factors, and investor returns (GP/LP splits, SIPs-optimized financing, etc.).
+A live, editable pro forma tool built for developers working on subdivisions and small multifamily projects.
 
-### Features (Phase 1 MVP)
-- Live assumptions editor
-- Tree harvest revenue (walnut & others)
-- Full pro forma with 70/30 loan + interest carry
-- Waterfall chart
-- Cash flow timeline
-- Sensitivity tables
-- Risk factor sliders
-- Monte Carlo simulation
+### Features
+- Tree harvest revenue calculator
+- Detailed home build cost and infrastructure breakdown
+- Clear Profit & Loss statement
+- GP/LP split with 50/50 profit share + preferred return
+- Cash waterfall visualization
 
-### Tech
-- Single HTML file (Tailwind + Chart.js)
-- Fully client-side (works offline)
-- Easy to expand into full SaaS
+Live demo: https://sip-street-saas.vercel.app/
 
-### Next Steps
-See `ROADMAP.md` for the full development plan.
-
-Live demo coming soon via Vercel.
+See `ROADMAP.md` for the full plan and lessons learned.
